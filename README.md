@@ -1,0 +1,1 @@
+Just following SingletonSean's Reservroom MVVM tutorial on [YouTube](https://www.youtube.com/watch?v=fZxZswmC_BY&list=PLA8ZIAm2I03hS41Fy4vFpRw8AdYNBXmNm&index=1)
