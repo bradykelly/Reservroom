@@ -16,6 +16,11 @@ namespace Reservroom.Models
             return _reservations.Where(r => string.Equals(r.UserName, username, StringComparison.InvariantCultureIgnoreCase));
         }
 
+        public IEnumerable<Reservation> GetAllReservations()
+        {
+            return _reservations;
+        }
+
         public void AddReservation(Reservation reservation)
         {
             foreach (var existingReservation in _reservations)
