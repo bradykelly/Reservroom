@@ -26,12 +26,17 @@
             <ListViewItem />
             <ListViewItem />
             <ListViewItem />
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room ID">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="12" />
+                                <TextBlock Padding="0 0 20 0" HorizontalAlignment="Center" Text="12" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -39,7 +44,7 @@
                     <GridViewColumn Header="Username">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="BradyKelly" />
+                                <TextBlock Padding="0 0 20 0" Text="BradyKelly" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -47,7 +52,7 @@
                     <GridViewColumn Header="Start Date">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="20/8/2021" />
+                                <TextBlock Padding="0 0 20 0" Text="20/8/2021" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -55,7 +60,7 @@
                     <GridViewColumn Header="End Date">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="5/10/2021" />
+                                <TextBlock Padding="0 0 20 0" Text="5/10/2021" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
