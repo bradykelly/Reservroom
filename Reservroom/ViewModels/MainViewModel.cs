@@ -1,13 +1,22 @@
 ﻿using Reservroom.Models;
+using Reservroom.Stores;
 
 namespace Reservroom.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public ViewModelBase CurrentViewModel { get; }
+    private readonly NavigationStore _navigationStore;
 
-    public MainViewModel(Hotel hotel)
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+    public MainViewModel(NavigationStore navigationStore)
     {
-        CurrentViewModel = new ReservationListingViewModel();
+        _navigationStore = navigationStore;
+        _navigationStore.CurrentViewModelChanged += CurrentViewModelChanged;
+    }
+
+    private void CurrentViewModelChanged()
+    {
+        OnPropertyChanged(nameof(CurrentViewModel));
     }
 }
