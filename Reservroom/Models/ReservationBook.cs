@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Reservroom.Exceptions;
 
-namespace Reservroom.Models
+namespace Reservroom.Models;
+
+public class ReservationBook
 {
-    public class ReservationBook
+    private List<Reservation> _reservations = new();
+
+    public IEnumerable<Reservation> GetReservationsForUser(string username)
     {
-        private List<Reservation> _reservations = new();
+        return _reservations.Where(r => string.Equals(r.UserName, username, StringComparison.InvariantCultureIgnoreCase));
+    }
 
-        public IEnumerable<Reservation> GetReservationsForUser(string username)
-        {
-            return _reservations.Where(r => string.Equals(r.UserName, username, StringComparison.InvariantCultureIgnoreCase));
-        }
+    public IEnumerable<Reservation> GetAllReservations()
+    {
+        return _reservations;
+    }
 
-        public IEnumerable<Reservation> GetAllReservations()
+    public void AddReservation(Reservation reservation)
+    {
+        foreach (var existingReservation in _reservations)
         {
-            return _reservations;
-        }
-
-        public void AddReservation(Reservation reservation)
-        {
-            foreach (var existingReservation in _reservations)
+            if (existingReservation.Conflicts(reservation))
             {
-                if (existingReservation.Conflicts(reservation))
-                {
-                    throw new ReservationConflictException(existingReservation, reservation);
-                }
+                throw new ReservationConflictException(existingReservation, reservation);
             }
-
-            _reservations.Add(reservation);
         }
+
+        _reservations.Add(reservation);
     }
 }

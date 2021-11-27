@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Personal\Core Projects\Reservroom\Reservroom\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\Personal\Core Projects\Reservroom\Reservroom\.editorconfig" />
+  </ItemGroup>
+
 </Project>

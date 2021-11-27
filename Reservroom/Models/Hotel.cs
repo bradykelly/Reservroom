@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Reservroom.Models
+namespace Reservroom.Models;
+
+public class Hotel
 {
-    public class Hotel
+    private readonly ReservationBook _reservationBook = new();
+
+    public string Name { get; }
+
+    public Hotel(string name)
     {
-        private readonly ReservationBook _reservationBook = new();
+        Name = name;
+    }
 
-        public string Name { get; }
+    public IEnumerable<Reservation> GetReservationsForUser(string username)
+    {
+        return _reservationBook.GetReservationsForUser(username);
+    }
 
-        public Hotel(string name)
-        {
-            Name = name;
-        }
+    public IEnumerable<Reservation> GetAllReservations()
+    {
+        return _reservationBook.GetAllReservations();
+    }
 
-        public IEnumerable<Reservation> GetReservationsForUser(string username)
-        {
-            return _reservationBook.GetReservationsForUser(username);
-        }
-
-        public IEnumerable<Reservation> GetAllReservations()
-        {
-            return _reservationBook.GetAllReservations();
-        }
-
-        public void MakeReservation(Reservation reservation)
-        {
-            _reservationBook.AddReservation(reservation);
-        }
+    public void MakeReservation(Reservation reservation)
+    {
+        _reservationBook.AddReservation(reservation);
     }
 }

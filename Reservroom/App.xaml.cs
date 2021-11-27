@@ -1,46 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Reservroom.Exceptions;
+﻿using System.Windows;
 using Reservroom.Models;
+using Reservroom.ViewModels;
 
-namespace Reservroom
+namespace Reservroom;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    private readonly Hotel _hotel = new Hotel("Kelly Suites");
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
+        MainWindow = new MainWindow
         {
-            Hotel hotel = new("Kelly Suites");
+            DataContext = new MainViewModel(_hotel)
+        };
 
-            try
-            {
-                hotel.MakeReservation(new Reservation(
-                    new RoomId(0, 3),
-                    "BradyKelly",
-                    new DateTime(2000, 1, 1),
-                    new DateTime(2000, 1, 2)));
-                hotel.MakeReservation(new Reservation(
-                    new RoomId(0, 3),
-                    "BradyKelly",
-                    new DateTime(2000, 1, 1),
-                    new DateTime(2000, 1, 4)));
-            }
-            catch (ReservationConflictException ex)
-            {
+        MainWindow.Show();
 
-
-            }
-
-            var reservations = hotel.GetReservationsForUser("bradykelly");
-
-            base.OnStartup(e);
-        }
+        base.OnStartup(e);
     }
 }

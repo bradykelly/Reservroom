@@ -1,52 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Reservroom.Models
+namespace Reservroom.Models;
+
+public class RoomId
 {
-    public class RoomId
+    public int FloorNumber { get; }
+    public int RoomNumber { get; }
+
+    public RoomId(int floorNumber, int roomNumber)
     {
-        public int FloorNumber { get; }
-        public int RoomNumber { get; }
+        FloorNumber = floorNumber;
+        RoomNumber = roomNumber;
+    }
 
-        public RoomId(int floorNumber, int roomNumber)
+    public override string ToString()
+    {
+        return $"{FloorNumber}{RoomNumber}";
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is RoomId roomId
+               && FloorNumber == roomId.FloorNumber
+               && RoomNumber == roomId.RoomNumber;
+    }
+
+    public static bool operator ==(RoomId? room1, RoomId? room2)
+    {
+        if (room1 is null && room2 is null)
         {
-            FloorNumber = floorNumber;
-            RoomNumber = roomNumber;
+            return true;
         }
 
-        public override string ToString()
-        {
-            return $"{FloorNumber}{RoomNumber}";
-        }
+        return room1 is not null && room1.Equals(room2);
+    }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is RoomId roomId
-                   && FloorNumber == roomId.FloorNumber
-                   && RoomNumber == roomId.RoomNumber;
-        }
+    public static bool operator !=(RoomId? room1, RoomId? room2)
+    {
+        return !(room1 == room2);
+    }
 
-        public static bool operator ==(RoomId? room1, RoomId? room2)
-        {
-            if (room1 is null && room2 is null)
-            {
-                return true;
-            }
-
-            return room1 is not null && room1.Equals(room2);
-        }
-
-        public static bool operator !=(RoomId? room1, RoomId? room2)
-        {
-            return !(room1 == room2);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(FloorNumber, RoomNumber);
-        }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(FloorNumber, RoomNumber);
     }
 }
