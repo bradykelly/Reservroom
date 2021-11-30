@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Reservroom.Models;
 
 namespace Reservroom.Database;
 
@@ -9,5 +8,5 @@ public class ReservroomDbContext: DbContext
     {
     }
 
-    public DbSet<ReservationDto> Reservations { get; set; }
+    public DbSet<ReservationDto>? Reservations { get; set; }
 }

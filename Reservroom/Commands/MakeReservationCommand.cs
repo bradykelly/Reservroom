@@ -6,7 +6,7 @@ using Reservroom.ViewModels;
 
 namespace Reservroom.Commands;
 
-public class MakeReservationCommand : CommandBase
+public class MakeReservationCommand : AsyncCommandBase
 {
     private readonly MakeReservationViewModel _viewModel;
     private readonly Hotel _hotel;
@@ -36,7 +36,7 @@ public class MakeReservationCommand : CommandBase
         return !string.IsNullOrWhiteSpace(_viewModel.Username) && base.CanExecute(parameter);
     }
 
-    public override void Execute(object? parameter)
+    public override async Task ExecuteAsync(object? parameter)
     {
         var reservation = new Reservation(
             new RoomId(_viewModel.FloorNumber, _viewModel.RoomNumber),
@@ -46,7 +46,7 @@ public class MakeReservationCommand : CommandBase
 
         try
         {
-            _hotel.MakeReservation(reservation);
+            await _hotel.MakeReservation(reservation);
 
             MessageBox.Show("Room successfully reserved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -55,6 +55,10 @@ public class MakeReservationCommand : CommandBase
         catch (ReservationConflictException)
         {
             MessageBox.Show("This room is already taken.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to make reservation: {ex.GetBaseException().Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

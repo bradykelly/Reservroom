@@ -5,8 +5,8 @@ namespace Reservroom.Exceptions;
 
 public class ReservationConflictException : Exception
 {
-    public Reservation ExistingReservation { get; }
-    public Reservation IncomingReservation { get; }
+    public Reservation? ExistingReservation { get; }
+    public Reservation? IncomingReservation { get; }
 
     public ReservationConflictException()
     {

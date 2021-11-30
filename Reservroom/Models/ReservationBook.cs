@@ -1,31 +1,37 @@
 ﻿using Reservroom.Exceptions;
+using Reservroom.Services.ReservationConflictValidators;
+using Reservroom.Services.ReservationCreators;
+using Reservroom.Services.ReservationProviders;
 
 namespace Reservroom.Models;
 
 public class ReservationBook
 {
-    private List<Reservation> _reservations = new();
+    private IReservationProvider _reservationProvider;
+    private IReservationCreator _reservationCreator;
+    private IReservationConflictValidator _reservationConflictValidator;
 
-    public IEnumerable<Reservation> GetReservationsForUser(string username)
+    public ReservationBook(IReservationProvider reservationProvider, IReservationCreator reservationCreator, IReservationConflictValidator reservationConflictValidator)
     {
-        return _reservations.Where(r => string.Equals(r.UserName, username, StringComparison.InvariantCultureIgnoreCase));
+        _reservationProvider = reservationProvider;
+        _reservationCreator = reservationCreator;
+        _reservationConflictValidator = reservationConflictValidator;
     }
 
-    public IEnumerable<Reservation> GetAllReservations()
+    public async Task<IEnumerable<Reservation>> GetAllReservations()
     {
-        return _reservations;
+        return await _reservationProvider.GetAllReservations();
     }
 
-    public void AddReservation(Reservation reservation)
+    public async Task AddReservation(Reservation reservation)
     {
-        foreach (var existingReservation in _reservations)
+        var conflictingReservation = await _reservationConflictValidator.GetConflictingReservation(reservation);
+
+        if (conflictingReservation is not null)
         {
-            if (existingReservation.Conflicts(reservation))
-            {
-                throw new ReservationConflictException(existingReservation, reservation);
-            }
+            throw new ReservationConflictException(conflictingReservation, reservation);
         }
 
-        _reservations.Add(reservation);
+        await _reservationCreator.CreateReservation(reservation);
     }
 }
