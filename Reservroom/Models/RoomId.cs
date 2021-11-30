@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Reservroom.Models;
+﻿namespace Reservroom.Models;
 
 public class RoomId
 {

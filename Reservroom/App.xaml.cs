@@ -33,7 +33,7 @@ public partial class App : Application
         return new MakeReservationViewModel(_hotel, new NavigationService(_navigationStore, CreateReservationListingViewModel));
     }
 
-    private ReservationListingViewModel CreateReservationListingViewModel()
+    private ReservationListingViewModel? CreateReservationListingViewModel()
     {
         return new ReservationListingViewModel(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
     }

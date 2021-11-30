@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Reservroom.Commands;
 using Reservroom.Models;
 using Reservroom.Services;
-using Reservroom.Stores;
 
 namespace Reservroom.ViewModels;
 

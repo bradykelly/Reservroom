@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Reservroom;
+﻿namespace Reservroom;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

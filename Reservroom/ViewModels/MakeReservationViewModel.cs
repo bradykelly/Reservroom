@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Reservroom.Commands;
 using Reservroom.Models;
 using Reservroom.Services;
-using Reservroom.Stores;
 
 namespace Reservroom.ViewModels;
 
